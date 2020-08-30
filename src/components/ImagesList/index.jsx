@@ -12,7 +12,7 @@ const masonryOptions = {
 
 const ImagesList = () => {
   const [images, setImages] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const loadNextPhotos = useCallback(() => {
     const retVal = getPhotos(page, 20).then((r) =>
       setImages([...images, ...r])
@@ -39,11 +39,6 @@ const ImagesList = () => {
         next={loadNextPhotos}
         hasMore={true}
         loader={<Loading3QuartersOutlined spin></Loading3QuartersOutlined>}
-        endMessage={
-          <p>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
         refreshFunction={refresh}
         pullDownToRefresh
         pullDownToRefreshContent={
