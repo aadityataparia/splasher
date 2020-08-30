@@ -26,3 +26,8 @@ export const removeFavorite = (favorites, image) => {
   });
   return { ...favorites };
 };
+
+export const removeList = (favorites, list) => {
+  delete favorites[list];
+  return { ...favorites };
+};

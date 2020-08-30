@@ -1,26 +1,19 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { FormBuilder, FormContextProvider, Field } from "../FormBuilder";
 import { useFavorites } from "../../hooks/favorites";
-import { Modal, Select, Button, Input } from "antd";
+import { Modal, Input, AutoComplete } from "antd";
 import { FormFieldLabel, Br } from "../GenericStyles";
-import { UnorderedListOutlined } from "@ant-design/icons";
+import { addFavoriteSchema } from "./schema";
 
 const AddFavoriteForm = ({ data, onSubmit, visible, hide }) => {
   const favorites = useFavorites();
   const [customName, setCustomName] = useState("");
-  const [lists, setLists] = useState(
-    Object.keys(favorites).map((v) => ({
-      value: v,
-      ...favorites[v],
-    }))
-  );
-  const createList = useCallback(() => {
-    if (!lists.find((l) => l.value === customName))
-      setLists([...lists, { value: customName }]);
-  }, [customName, lists]);
+  const lists = Object.keys(favorites).map((value) => ({ value }));
+
   return (
     <FormBuilder
       initialValues={{ list: "", descripiton: "", image: data }}
+      validationSchema={addFavoriteSchema}
       onSubmit={onSubmit}
     >
       <FormContextProvider>
@@ -35,37 +28,22 @@ const AddFavoriteForm = ({ data, onSubmit, visible, hide }) => {
             <FormFieldLabel>List</FormFieldLabel>
             <Field
               name="list"
-              as={Select}
+              as={AutoComplete}
               style={{ width: "100%" }}
               placeholder="Select List or Create new"
-              prefix={<UnorderedListOutlined />}
               size="large"
-              onChange={(v) =>
+              onSelect={(v) =>
                 setFieldValue(
                   "description",
                   favorites[v] ? favorites[v].description : ""
                 )
               }
-              showSearch
               onSearch={setCustomName}
-              dropdownRender={(menu) => (
-                <div>
-                  {menu}
-                  <Br></Br>
-                  {customName.length > 1 && (
-                    <Button type="link" onClick={createList}>
-                      Create {customName}
-                    </Button>
-                  )}
-                </div>
+              options={lists.filter(
+                (l) =>
+                  l.value.toLowerCase().indexOf(customName.toLowerCase()) > -1
               )}
-            >
-              {lists.map((l) => (
-                <Select.Option key={l.value} value={l.value}>
-                  {l.value}
-                </Select.Option>
-              ))}
-            </Field>
+            ></Field>
             <Br></Br>
             <FormFieldLabel>Description</FormFieldLabel>
             <Field
