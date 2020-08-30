@@ -1,20 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Masonry from "react-masonry-component";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loading3QuartersOutlined } from "@ant-design/icons";
 import { getPhotos } from "../../utils/unsplash";
 import { CentredDiv, PaddedContainer } from "../GenericStyles";
-import Image from "./Image";
-
-const masonryOptions = {
-  transitionDuration: 100,
-};
+import Images from "./Images";
 
 const ImagesList = ({ setFavorite }) => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const loadNextPhotos = useCallback(() => {
-    const retVal = getPhotos(page, 20).then((r) =>
+    const retVal = getPhotos(page, 10).then((r) =>
       setImages([...images, ...r])
     );
     setPage(page + 1);
@@ -38,7 +33,17 @@ const ImagesList = ({ setFavorite }) => {
         dataLength={images.length}
         next={loadNextPhotos}
         hasMore={true}
-        loader={<Loading3QuartersOutlined spin></Loading3QuartersOutlined>}
+        loader={
+          <PaddedContainer>
+            <CentredDiv>
+              <Loading3QuartersOutlined
+                spin
+                size="large"
+                style={{ fontSize: "40px" }}
+              ></Loading3QuartersOutlined>
+            </CentredDiv>
+          </PaddedContainer>
+        }
         refreshFunction={refresh}
         pullDownToRefresh
         pullDownToRefreshContent={
@@ -47,12 +52,9 @@ const ImagesList = ({ setFavorite }) => {
         releaseToRefreshContent={
           <CentredDiv>&#8593; Release to refresh</CentredDiv>
         }
+        scrollThreshold="20px"
       >
-        <Masonry options={masonryOptions}>
-          {images.map((i) => (
-            <Image key={i.id} data={i} setFavorite={setFavorite}></Image>
-          ))}
-        </Masonry>
+        <Images images={images} setFavorite={setFavorite}></Images>
       </InfiniteScroll>
     </PaddedContainer>
   );
