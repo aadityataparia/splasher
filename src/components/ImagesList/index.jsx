@@ -4,6 +4,7 @@ import { Loading3QuartersOutlined } from "@ant-design/icons";
 import { getPhotos } from "../../utils/unsplash";
 import { CentredDiv, PaddedContainer } from "../GenericStyles";
 import Images from "./Images";
+import { uniqBy } from "lodash";
 
 const ImagesList = ({ setFavorite }) => {
   const [images, setImages] = useState([]);
@@ -54,7 +55,10 @@ const ImagesList = ({ setFavorite }) => {
         }
         scrollThreshold="20px"
       >
-        <Images images={images} setFavorite={setFavorite}></Images>
+        <Images
+          images={uniqBy(images, "id")}
+          setFavorite={setFavorite}
+        ></Images>
       </InfiniteScroll>
     </PaddedContainer>
   );
