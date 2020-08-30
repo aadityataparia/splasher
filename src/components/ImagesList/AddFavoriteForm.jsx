@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormBuilder, FormContextProvider, Field } from "../FormBuilder";
 import { useFavorites } from "../../hooks/favorites";
-import { Modal, Input, AutoComplete } from "antd";
+import { Modal, Input, AutoComplete, Avatar } from "antd";
 import { FormFieldLabel, Br } from "../GenericStyles";
 import { addFavoriteSchema } from "./schema";
 
@@ -20,7 +20,11 @@ const AddFavoriteForm = ({ data, onSubmit, visible, hide }) => {
         {({ submitForm, setFieldValue }) => (
           <Modal
             visible={visible}
-            title="Add to favorite"
+            title={
+              <React.Fragment>
+                <Avatar src={data.urls.small}></Avatar> Add to favorite
+              </React.Fragment>
+            }
             okText={"Add"}
             onOk={submitForm}
             onCancel={hide}
