@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import Page from "../components/Page";
-import ImagesList from "../components/ImagesList";
+import BigLoading from "../components/BigLoading";
+
+const ImagesList = lazy(() => import("../components/ImagesList"));
 
 const ImagesPage = ({ setFavorite }) => (
   <Page>
-    <ImagesList setFavorite={setFavorite}></ImagesList>
+    <Suspense fallback={<BigLoading></BigLoading>}>
+      <ImagesList setFavorite={setFavorite}></ImagesList>
+    </Suspense>
   </Page>
 );
 

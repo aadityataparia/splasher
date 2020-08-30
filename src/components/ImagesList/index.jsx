@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Loading3QuartersOutlined } from "@ant-design/icons";
+import BigLoading from "../BigLoading";
 import { getPhotos } from "../../utils/unsplash";
 import { CentredDiv, PaddedContainer } from "../GenericStyles";
 import Images from "./Images";
@@ -34,17 +34,7 @@ const ImagesList = ({ setFavorite }) => {
         dataLength={images.length}
         next={loadNextPhotos}
         hasMore={true}
-        loader={
-          <PaddedContainer>
-            <CentredDiv>
-              <Loading3QuartersOutlined
-                spin
-                size="large"
-                style={{ fontSize: "40px" }}
-              ></Loading3QuartersOutlined>
-            </CentredDiv>
-          </PaddedContainer>
-        }
+        loader={<BigLoading></BigLoading>}
         refreshFunction={refresh}
         pullDownToRefresh
         pullDownToRefreshContent={
