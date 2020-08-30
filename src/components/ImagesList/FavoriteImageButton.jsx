@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { FileAddOutlined, DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, AppstoreAddOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useAsyncCallback } from "../../hooks/async";
 import {
@@ -21,7 +21,6 @@ const FavoriteImageButton = ({ data, setFavorite }) => {
 
   const { isLoading, callback: addFavorite } = useAsyncCallback(
     ({ image, list, description }) => {
-      console.log(image, list, description, favorites[list]);
       favorites[list] = favorites[list] || {
         images: [],
         description,
@@ -49,11 +48,12 @@ const FavoriteImageButton = ({ data, setFavorite }) => {
         shape="round"
         ghost
         loading={isLoading}
+        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
         icon={
           isFavorite ? (
             <DeleteOutlined></DeleteOutlined>
           ) : (
-            <FileAddOutlined></FileAddOutlined>
+            <AppstoreAddOutlined />
           )
         }
         onClick={isFavorite ? _removeFavorite : _showModal}

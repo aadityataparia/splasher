@@ -12,7 +12,7 @@ const AddFavoriteForm = ({ data, onSubmit, visible, hide }) => {
 
   return (
     <FormBuilder
-      initialValues={{ list: "", descripiton: "", image: data }}
+      initialValues={{ list: "", description: "", image: data }}
       validationSchema={addFavoriteSchema}
       onSubmit={onSubmit}
     >

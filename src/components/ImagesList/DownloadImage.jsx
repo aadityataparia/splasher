@@ -13,6 +13,7 @@ const DownloadImage = ({ data }) => {
     <Button
       shape="round"
       ghost
+      title="Download"
       loading={isLoading}
       icon={<DownloadOutlined></DownloadOutlined>}
       onClick={download}
