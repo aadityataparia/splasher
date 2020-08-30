@@ -8,6 +8,7 @@ import {
   useFavorites,
 } from "../../hooks/favorites";
 import AddFavoriteForm from "./AddFavoriteForm";
+import { showNotification } from "../../utils/notify";
 
 const FavoriteImageButton = ({ data, setFavorite }) => {
   const [showModel, setShowModel] = useState(false);
@@ -27,15 +28,20 @@ const FavoriteImageButton = ({ data, setFavorite }) => {
       };
       favorites[list].description = description;
       favorites[list].images.push(image);
-      return setFavorite({ ...favorites }).then(_hideModal);
+      return setFavorite({ ...favorites })
+        .then(_hideModal)
+        .then(() => {
+          showNotification("success", "Image added to " + list);
+        });
     },
     [favorites]
   );
 
-  const _removeFavorite = useCallback(
-    () => setFavorite(removeFavorite(favorites, data)),
-    [data, favorites, setFavorite]
-  );
+  const _removeFavorite = useCallback(() => {
+    setFavorite(removeFavorite(favorites, data)).then(() => {
+      showNotification("warning", "Image was removed from favorites");
+    });
+  }, [data, favorites, setFavorite]);
 
   return (
     <React.Fragment>
