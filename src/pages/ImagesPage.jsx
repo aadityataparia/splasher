@@ -2,9 +2,9 @@ import React from "react";
 import Page from "../components/Page";
 import ImagesList from "../components/ImagesList";
 
-const ImagesPage = () => (
+const ImagesPage = ({ setFavorite }) => (
   <Page>
-    <ImagesList></ImagesList>
+    <ImagesList setFavorite={setFavorite}></ImagesList>
   </Page>
 );
 

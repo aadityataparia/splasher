@@ -1,4 +1,5 @@
 import React from "react";
+import { Avatar } from "antd";
 import {
   ResponsiveDiv,
   Img,
@@ -8,9 +9,9 @@ import {
   WhiteText,
 } from "./styles";
 import DownloadImage from "./DownloadImage";
-import { Avatar } from "antd";
+import FavoriteImageButton from "./FavoriteImageButton";
 
-export const Image = ({ data }) => {
+export const Image = ({ data, setFavorite }) => {
   return (
     <ResponsiveDiv>
       <Img
@@ -20,7 +21,11 @@ export const Image = ({ data }) => {
       ></Img>
       <HoverDiv>
         <TopRight>
-          <DownloadImage data={data}></DownloadImage>
+          <DownloadImage data={data}></DownloadImage>{" "}
+          <FavoriteImageButton
+            data={data}
+            setFavorite={setFavorite}
+          ></FavoriteImageButton>
         </TopRight>
         <BottomLeft>
           <WhiteText>

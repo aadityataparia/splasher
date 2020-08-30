@@ -10,7 +10,7 @@ const masonryOptions = {
   transitionDuration: 100,
 };
 
-const ImagesList = () => {
+const ImagesList = ({ setFavorite }) => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const loadNextPhotos = useCallback(() => {
@@ -50,7 +50,7 @@ const ImagesList = () => {
       >
         <Masonry options={masonryOptions}>
           {images.map((i) => (
-            <Image data={i}></Image>
+            <Image key={i.id} data={i} setFavorite={setFavorite}></Image>
           ))}
         </Masonry>
       </InfiniteScroll>

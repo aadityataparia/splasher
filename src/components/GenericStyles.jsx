@@ -21,6 +21,10 @@ export const Br = styled.div`
   margin: 0;
 `;
 
+export const FormFieldLabel = styled.p`
+  color: #333;
+`;
+
 export const RespCol = ({ small = false, full = false, ...props }) => (
   <Col
     xs={24}
