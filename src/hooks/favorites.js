@@ -31,3 +31,21 @@ export const removeList = (favorites, list) => {
   delete favorites[list];
   return { ...favorites };
 };
+
+export const editListTitle = (favorites, old, newList) => {
+  const keys = Object.keys(favorites);
+  const newFav = {};
+  keys.forEach((k) => {
+    if (k === old) {
+      newFav[newList] = favorites[old];
+    } else {
+      newFav[old] = favorites[old];
+    }
+  });
+  return newFav;
+};
+
+export const editListDescription = (favorites, list, description) => {
+  favorites[list].description = description;
+  return { ...favorites };
+};

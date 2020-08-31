@@ -4,6 +4,8 @@ import { PaddedContainer } from "../GenericStyles";
 import { useFavorites } from "../../hooks/favorites";
 import DeleteListButton from "./DeleteListButton";
 import Images from "../ImagesList/Images";
+import EditListTitle from "./EditListTitle";
+import EditListDescription from "./EditListDescription";
 
 const Favorites = ({ setFavorite }) => {
   const favorites = useFavorites();
@@ -11,10 +13,21 @@ const Favorites = ({ setFavorite }) => {
     <PaddedContainer>
       <h1>Favorites</h1>
       {Object.keys(favorites).map((list) => (
-        <React.Fragment>
+        <React.Fragment key={list}>
           <PageHeader
-            title={list}
-            subTitle={favorites[list].description || ""}
+            title={
+              <EditListTitle
+                setFavorite={setFavorite}
+                list={list}
+              ></EditListTitle>
+            }
+            subTitle={
+              <EditListDescription
+                setFavorite={setFavorite}
+                list={list}
+                description={favorites[list].description || ""}
+              ></EditListDescription>
+            }
             extra={
               <DeleteListButton
                 setFavorite={setFavorite}
