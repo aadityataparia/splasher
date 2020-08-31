@@ -37,9 +37,9 @@ export const editListTitle = (favorites, old, newList) => {
   const newFav = {};
   keys.forEach((k) => {
     if (k === old) {
-      newFav[newList] = favorites[old];
+      newFav[newList] = favorites[k];
     } else {
-      newFav[old] = favorites[old];
+      newFav[k] = favorites[k];
     }
   });
   return newFav;
