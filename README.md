@@ -64,14 +64,14 @@ I have implemented independent reusable components
 ## TODO
 
 - Create backend system with authentication and saving user's favorites in DB.
-- Use SSR for better cross browser compatibility
+- Use SSR for better cross browser compatibility (mini browsers)
 - Write tests
 - Add a zoom in photo view when you click on any image
 - Add user profile view in our website instead of linking unsplash
 
 ## Browser compatibility
 
-> 92% of all users globally
+\> 92% of all users globally
 
 - chrome 49+
 - edge 12+
