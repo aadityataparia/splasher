@@ -1,48 +1,55 @@
 import React, { useState, useEffect, useCallback } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import BigLoading from "../BigLoading";
-import { getPhotos } from "../../utils/unsplash";
-import { CentredDiv, PaddedContainer } from "../GenericStyles";
+import { getPhotos, searchPhotos } from "../../utils/unsplash";
+import { PaddedContainer, Br } from "../GenericStyles";
 import Images from "./Images";
 import { uniqBy } from "lodash";
+import { Input } from "antd";
 
 const ImagesList = ({ setFavorite }) => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
-  const loadNextPhotos = useCallback(() => {
-    const retVal = getPhotos(page, 10).then((r) =>
-      setImages([...images, ...r])
-    );
-    setPage(page + 1);
-    return retVal;
-  }, [images, page]);
+  const [query, setQuery] = useState("");
 
-  const refresh = useCallback(async () => {
-    await setPage(0);
-    await setImages([]);
-    return loadNextPhotos();
-  }, [loadNextPhotos]);
+  const loadNextPhotos = useCallback(
+    (images, page) => {
+      setPage(page);
+      const retVal = (query
+        ? searchPhotos(query, page, 10)
+        : getPhotos(page, 10)
+      ).then((r) => setImages([...images, ...r]));
+      return retVal;
+    },
+    [query]
+  );
+
+  const refresh = useCallback(() => loadNextPhotos([], 1), [loadNextPhotos]);
+
+  const next = useCallback(() => {
+    loadNextPhotos(images, page + 1);
+  }, [images, loadNextPhotos, page]);
 
   useEffect(() => {
-    loadNextPhotos();
+    refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query]);
 
   return (
     <PaddedContainer>
+      <Input.Search
+        placeholder="Search Images"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        size="large"
+        style={{ width: "100%", maxWidth: 400 }}
+      />
+      <Br></Br>
       <InfiniteScroll
         dataLength={images.length}
-        next={loadNextPhotos}
+        next={next}
         hasMore={true}
         loader={<BigLoading></BigLoading>}
-        refreshFunction={refresh}
-        pullDownToRefresh
-        pullDownToRefreshContent={
-          <CentredDiv>&#8595; Pull down to refresh</CentredDiv>
-        }
-        releaseToRefreshContent={
-          <CentredDiv>&#8593; Release to refresh</CentredDiv>
-        }
         scrollThreshold="20px"
       >
         <Images

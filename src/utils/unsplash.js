@@ -4,8 +4,14 @@ const unsplash = new Unsplash({
   accessKey: process.env.REACT_APP_UNSPLASH_API_KEY,
 });
 
-export const getPhotos = (page = 0, size = 20) =>
+export const getPhotos = (page = 1, size = 10) =>
   unsplash.photos.listPhotos(page, size, "latest").then((resp) => resp.json());
+
+export const searchPhotos = (query, page = 1, size = 10) =>
+  unsplash.search
+    .photos(query, page, size)
+    .then((resp) => resp.json())
+    .then((r) => r.results);
 
 export const downloadImage = async (image) => {
   const link = document.createElement("a");
