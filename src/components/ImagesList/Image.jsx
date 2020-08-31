@@ -29,7 +29,14 @@ export const Image = ({ data, setFavorite }) => {
         </TopRight>
         <BottomLeft>
           <WhiteText>
-            <Avatar src={data.user.profile_image.medium} /> {data.user.name}
+            <a
+              style={{ color: "white" }}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={data.user.links.html}
+            >
+              <Avatar src={data.user.profile_image.medium} /> {data.user.name}
+            </a>
           </WhiteText>
         </BottomLeft>
       </HoverDiv>
