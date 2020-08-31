@@ -61,6 +61,10 @@ I have implemented independent reusable components
 - Simple dependency chart of components
   eg. images masonry component is used in home page as well as favorites page
 
+I have used infinite scrollable search page for seamless user experience.
+
+I have used masonry image list to cater to images of different sizes.
+
 ## TODO
 
 - Create backend system with authentication and saving user's favorites in DB.
