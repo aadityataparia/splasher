@@ -6,7 +6,6 @@ import Field from "./Field";
 import SubmitButton from "./SubmitButton";
 import ResetButton from "./ResetButton";
 import FormValueProvider from "./FormValueProvider";
-import FieldValueChanger from "./FieldValueChanger";
 import FormContextProvider from "./FormContextProvider";
 
 const OnChangeSink = memo(({ onChange }) => {
@@ -68,6 +67,5 @@ export {
   SubmitButton,
   ResetButton,
   FormValueProvider,
-  FieldValueChanger,
   FormContextProvider,
 };
